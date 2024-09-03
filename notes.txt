@@ -1,0 +1,147 @@
+Conformiq
+
+
+1. Xmlns:xsi to be added
+2. Deleted is. used for deleted nodes
+3. Decision nodes have:- 
+    1. Condition : 
+        1. ad:Expression 
+        2. id is unique
+        3. 
+    2. Clause: 
+        1. Ad:FunctionCallClause
+        2. Id is unique
+        3. methodRef
+            1. External circumstances.
+            2. True
+            3. False
+
+
+Clause:
+1. Types
+    1. ad:FunctionCallClause ( has methodRef )
+        1. External_Circumstances.
+        2. boolean
+            2. True - bool
+            3. False 
+            5. and ( creates multiple inputArgs )
+            5. or ( creates multiple inputArgs )
+            5. xor ( creates multiple inputArgs )
+            4. not ( creates a inputArg )
+            8. equals ( creates two inputArgs )
+            8. notEquals ( creates two inputArgs )
+            8. lessThan ( creates two inputArgs )
+            8. lessThanOrEqual ( creates two inputArgs )
+            8. greaterThan ( creates two inputArgs )
+            8. greaterThanOrEqual ( creates two inputArgs )
+            9. IsInitialized ( creates a inputArg )
+        3. number
+            1. add ( creates multiple inputArgs )
+            2. subtract ( creates two inputArgs )
+            2. divide ( creates two inputArgs )
+            3. multiply ( creates multiple inputArgs )
+            3. stringLength ( creates a inputArg )
+        4. string
+            5. concat ( creates multiple inputArgs )
+            6. booleanToString ( creates a inputArg )
+            7. dateToString ( creates a inputArg )
+            8. numberToString ( creates a inputArg )
+        
+        
+    2. ad:DateLiteralClause ( has value )
+        1. Means days passed since Unix epoch.
+    3. ad:NumberLiteralClause ( has value )
+        1. Int value
+    4. ad:StringLiteralCluase ( has value )
+        1. String value
+
+InputArgs:
+1. Type: ad:Expression
+2. 
+
+
+Great now i have a heavy logic for you related to Decision Node, case_control Edge and else_control Edge.
+In every decision object there can be a data property: the properties inside this data will have 
+1.  label
+2.  condition : {
+        id: "ID",
+        clause: {
+            id: "ID",
+            type: "TYPE",
+            methodRef: 'METHOD',
+            data: [
+                inputArgs: {
+                    id: "ID",
+                    clause: {
+                        id: "ID",
+                        type: "TYPE",
+                        methodRef: 'METHOD',
+                        data: [...]
+                    }
+                },
+                inputArgs: {
+                    id: "ID",
+                    clause: {
+                        id: "ID",
+                        type: "TYPE",
+                        value: []
+                    }
+                },
+                inputArgs: {
+                    id: "ID",
+                    clause: {
+                        id: "ID",
+                        type: "TYPE",
+                        methodRef: 'METHOD',
+                        data: [...]
+                    }
+                },
+                ...
+            ]
+        }
+    }
+
+Let me explain the condition object. There is clause in each condition. clause will have a type similar to how we had for edge and nodes: 
+    function => ad:FunctionCallClause
+    date => ad:DateLiteralClause
+    number => ad:NumberLiteralClause
+    string => ad:StringLiteralCluase
+
+the clause will have list of inputArgs, in each inputArgs we will have clause as mentioned above. 
+In each clause if the type is function then we will have methodRef and data attribute else we will have value attribute.
+and the cycle continues until we have added all.
+
+This is the example of the result for decision node specifically:
+<nodes xmi:type="ad:DecisionNode" xmi:id="_kK9pgDPKEe-CXr1AUSTgQA" name="Verify registration" controlFlowsIn="_eO5MUDPNEe-CXr1AUSTgQA" caseControlFlowsOut="_DYdOADPQEe-CXr1AUSTgQA _WQDmIDPQEe-CXr1AUSTgQA">
+      <condition xmi:type="ad:Expression" xmi:id="_kK-QkDPKEe-CXr1AUSTgQA">
+        <clause xmi:type="ad:FunctionCallClause" xmi:id="_WrzBIGntEe-k0Ym48s7bMA" methodRef="concat">
+          <inputArgs xmi:type="ad:Expression" xmi:id="_W-yOkGntEe-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_XPBC8GntEe-k0Ym48s7bMA" value="aasd"/>
+          </inputArgs>
+          <inputArgs xmi:type="ad:Expression" xmi:id="_Xre8gGntEe-k0Ym48s7bMA">
+            <clause xmi:type="ad:FunctionCallClause" xmi:id="_Xre8gWntEe-k0Ym48s7bMA" methodRef="dateToString">
+              <inputArgs xmi:type="ad:Expression" xmi:id="_Xre8gmntEe-k0Ym48s7bMA">
+                <clause xmi:type="ad:DateLiteralClause" xmi:id="_YeoQsGntEe-k0Ym48s7bMA" value="19969"/>
+              </inputArgs>
+            </clause>
+          </inputArgs>
+          <inputArgs xmi:type="ad:Expression" xmi:id="_YCV9UGntEe-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_ZLIKUGntEe-k0Ym48s7bMA" value="asd"/>
+          </inputArgs>
+          <inputArgs xmi:type="ad:Expression" xmi:id="_ZwndAGntEe-k0Ym48s7bMA">
+            <clause xmi:type="ad:FunctionCallClause" xmi:id="_ZwoEEGntEe-k0Ym48s7bMA" methodRef="numberToString">
+              <inputArgs xmi:type="ad:Expression" xmi:id="_ZwoEEWntEe-k0Ym48s7bMA">
+                <clause xmi:type="ad:FunctionCallClause" xmi:id="_ahPBoGntEe-k0Ym48s7bMA" methodRef="add">
+                  <inputArgs xmi:type="ad:Expression" xmi:id="_a6nK8GntEe-k0Ym48s7bMA">
+                    <clause xmi:type="ad:NumberLiteralClause" xmi:id="_bKKp4GntEe-k0Ym48s7bMA" value="asd"/>
+                  </inputArgs>
+                  <inputArgs xmi:type="ad:Expression" xmi:id="_bVgXMGntEe-k0Ym48s7bMA">
+                    <clause xmi:type="ad:NumberLiteralClause" xmi:id="_bi-LcGntEe-k0Ym48s7bMA" value="asd"/>
+                  </inputArgs>
+                </clause>
+              </inputArgs>
+            </clause>
+          </inputArgs>
+        </clause>
+      </condition>
+    </nodes>

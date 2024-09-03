@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ad="http://www.conformiq.com/emf/21/ActivityDiagram" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation">
+  <ad:ActivityDiagram xmi:id="_iE1J8DS7Ee-neNUauUE2Mg" type="qml1b8c133ef92c4f088d3dfa62203f3dc4">
+    <nodes xmi:type="ad:InitialNode" xmi:id="_zgSewDS8Ee-neNUauUE2Mg" name="Initial Node"/>
+    <nodes xmi:type="ad:FinalNode" xmi:id="_nzKB4DS_Ee-neNUauUE2Mg" name="Return Node 1"/>
+    <nodes xmi:type="ad:TerminateNode" xmi:id="_ogzyEDS_Ee-neNUauUE2Mg" name="Flow Final Node 1"/>
+  </ad:ActivityDiagram>
+  <notation:Diagram xmi:id="_iE2_IDS7Ee-neNUauUE2Mg" type="ConformiqActivityChart" element="_iE1J8DS7Ee-neNUauUE2Mg" name="CQL.ad" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_zgSewTS8Ee-neNUauUE2Mg" type="2004" element="_zgSewDS8Ee-neNUauUE2Mg">
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_zgSewjS8Ee-neNUauUE2Mg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_zgSewzS8Ee-neNUauUE2Mg" fontName="Segoe UI"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_zgSexDS8Ee-neNUauUE2Mg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zgSexTS8Ee-neNUauUE2Mg" x="123" y="83"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_nzL3EDS_Ee-neNUauUE2Mg" type="2002" element="_nzKB4DS_Ee-neNUauUE2Mg">
+      <children xmi:type="notation:DecorationNode" xmi:id="_nzL3FTS_Ee-neNUauUE2Mg" type="5002"/>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_nzL3ETS_Ee-neNUauUE2Mg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_nzL3EjS_Ee-neNUauUE2Mg" fontName="Segoe UI"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_nzL3EzS_Ee-neNUauUE2Mg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nzL3FDS_Ee-neNUauUE2Mg" x="317" y="101"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_ohGtADS_Ee-neNUauUE2Mg" type="2011" element="_ogzyEDS_Ee-neNUauUE2Mg" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_ohGtAjS_Ee-neNUauUE2Mg" type="5020"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ohGtATS_Ee-neNUauUE2Mg" x="169" y="213"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_iE2_ITS7Ee-neNUauUE2Mg"/>
+  </notation:Diagram>
+</xmi:XMI>

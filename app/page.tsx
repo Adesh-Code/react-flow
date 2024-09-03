@@ -10,6 +10,7 @@ import StartNode from "@/components/nodes/StartNode";
 import DecisionNode from "@/components/nodes/DecisionNode";
 import DataNode from "@/components/nodes/DataNode";
 import DatatypeNode from "@/components/nodes/DatatypeNode";
+import { inputXML, transformXML } from "@/utils/convertToCQL";
 
 export default function Home() {
 
@@ -98,26 +99,26 @@ export default function Home() {
 
   const initialEdges: Edge[] = [
     {
-      id: '1',
+      id: '8',
       source: '1',
       target: "2",
       animated: true,
     },
     {
-      id: '2',
+      id: '9',
       source: '2',
       target: "3",
       animated: true,
     },
     {
-      id: '3',
+      id: '10',
       source: '3',
       sourceHandle: 'left',
       target: "4",
       animated: true,
     },
     {
-      id: '4',
+      id: '11',
       source: '3',
       sourceHandle: 'right',
       target: "5",
@@ -145,7 +146,8 @@ export default function Home() {
       <div className="flex justify-center items-center">
 
         <button className="h-[10%] border bg-white" onClick={() => {
-          convertToXML({nodes, edges});
+          // transformXML(inputXML);
+          // convertToXML({nodes, edges});
         }} >Export to XML</button>
       
         </div>

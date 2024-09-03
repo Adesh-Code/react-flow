@@ -26,8 +26,7 @@ import { js2xml } from "xml-js";
             acc[nodeName] = acc[nodeName] || [];
             acc[nodeName].push({ _attributes: attributes });
             return acc;
-          }, {})
-        },
+          }, {}),
           edges: {
             edge: edges.map((edge: Edge) => ({
               _attributes: {
@@ -36,6 +35,7 @@ import { js2xml } from "xml-js";
               }
             }))
           }
+        },
         
       },
       { compact: true, spaces: 2 }

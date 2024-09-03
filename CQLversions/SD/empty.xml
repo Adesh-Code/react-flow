@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.conformiq.creator.structure.dsl="http://www.conformiq.com/emf/15/StructureDiagram" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_eVfU8DS8Ee-neNUauUE2Mg" type="Dsl" name="CQLs.sd" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_eVfU8TS8Ee-neNUauUE2Mg"/>
+  <element xmi:type="com.conformiq.creator.structure.dsl:Model" href="CQLs.sl#/"/>
+</notation:Diagram>

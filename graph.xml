@@ -1,0 +1,20 @@
+<elements nodes="7" edges="4">
+  <nodes>
+    <Start id="1" label="" posX="-18.5" posY="0" edges="1"/>
+    <Data id="2" label="Request user to login" posX="-58.5" posY="132" edges="2"/>
+    <Data id="5" label="Invalid login" posX="100" posY="300"/>
+    <Decision id="3" label="ValidUser" posX="-45" posY="250" edges="3,4"/>
+    <End id="4" label="" posX="-192.5" posY="292"/>
+    <Datatype id="6" label="User Info" posX="-158.5" posY="132"/>
+    <Comment id="7" label="Here we validate our &quot;Entered User Info&quot; data. Since we don't have a users table,
+         we must explicitly define here multiple sets of values that can cause this test to pass.
+        Anything else will fail. Our test generator will generate data for any variable filled with
+         &quot;Don't care&quot; values to make sure as many decisio..." posX="-158.5" posY="350"/>
+  </nodes>
+</elements>
+<edges>
+  <edge source="1" target="2"/>
+  <edge source="2" target="3"/>
+  <edge source="3" target="4"/>
+  <edge source="3" target="5"/>
+</edges>

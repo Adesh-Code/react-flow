@@ -86,11 +86,11 @@ export async function GET(res: NextResponse, req: NextRequest) {
         }
     } 
 
-    const businessNode ={
+    const businessNode = {
         id: "node2",
         type: "Data",
         data: {
-            label: "business",
+            name: "business",
             actions: [
                 {
                     id: "ID2",
@@ -139,7 +139,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
             ],
             parameters: [
                 {
-                    label: "param1",
+                    name: "param1",
                     id: "KEY1",
                     qmlID: "QMLID1",
                     kind: "Input",
@@ -154,7 +154,8 @@ export async function GET(res: NextResponse, req: NextRequest) {
             rows: [
                 {
                     id: "ID13",
-                    cells: [{
+                    cells: [
+                        {
                         id: "ID14" ,
                         key: "KEY1",
                         value: "val"
@@ -162,7 +163,8 @@ export async function GET(res: NextResponse, req: NextRequest) {
                         id: "ID18", 
                         key: "KEY2",
                         value: "vals"
-                    }]
+                    }
+                ]
                 },
                 {
                     id: "ID15",
@@ -192,7 +194,6 @@ export async function GET(res: NextResponse, req: NextRequest) {
                 data: null
               },
               complexDecision,
-              
         ],
         edges: [
             {
@@ -217,7 +218,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
             id: "2",
             type: "Data",
             data: {
-              label: "Request user to login",
+              name: "Request user to login",
               entities: 
                 {
                   "DS" : "'Login' screen",
@@ -231,7 +232,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
             id: "3",
             type: "Decision",
             data: {
-              label: "ValidUser",
+              name: "ValidUser",
             },
             position: {x:-45, y:250}
           },
@@ -245,7 +246,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
             id: "5",
             type: "Data",
             data: {
-              label: "Invalid login",
+              name: "Invalid login",
               entities: 
                 {
                   "DP" : "'Error' popup",
@@ -257,7 +258,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
             id: "6",
             type: "Datatype",
             data: {
-              label: "User Info",
+              name: "User Info",
               entities: {
                 "username": "String",
                 "password": "String"
@@ -269,7 +270,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
             id: "7",
             type: "Comment",
             data: {
-              label: `Here we validate our "Entered User Info" data. Since we don't have a users table,
+              name: `Here we validate our "Entered User Info" data. Since we don't have a users table,
                we must explicitly define here multiple sets of values that can cause this test to pass.
               Anything else will fail. Our test generator will generate data for any variable filled with
                "Don't care" values to make sure as many decisio...`,

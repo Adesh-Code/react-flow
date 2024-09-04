@@ -18,6 +18,7 @@ enum Edge: {
     Case: "case_flow",
     Else: "else_flow",
     Data: "data_flow"
+    Note: "note_flow"
 }
 
 enum ClauseType: {
@@ -25,6 +26,8 @@ enum ClauseType: {
     Date: "date_clause",
     Number: "number_clause",
     String: "string_clause",
+    DataObject: "data_object_access_clause",
+    DiagramRef: "diagram_ref_clause",
 }
 
 enum FunctionClause: {
@@ -53,6 +56,42 @@ enum FunctionClause: {
     NumberToString : "numberToString",
 }
 
+enum BusinessAction: {
+    When: "when_action",
+    Then: "then_action",
+    And: "and_action",
+    Given: "given_action",
+    NameTag: "nameTag_action",
+    Narrative: "narrative_action",
+}
+
+enum BusinessParameterKind {
+    Input: "input",
+    Output: "output",
+}
+
+enum PrimitiveDataType {
+  String: "string",
+  Boolean: "boolean",
+  Number: "number",
+  Date: "date"
+}
+
+enum Visibility {
+  Global: "global",
+  Local: "local",
+}
+
+enum ActionType {
+  EvaluateBoolean: "evaluateBoolean",
+  EvaluateInt: "evaluateInt",
+  EvaluateDate: "evaluateDate",
+  EvaluateString: "evaluateString",
+  Narrative: "narrative",
+  NameTag: "nameTag",
+  CallSubActivity: "callSubActivity",
+}
+
 all the nodes with only name as property will have a name property in the data e.g.
 
 InitialNode => {
@@ -60,13 +99,15 @@ InitialNode => {
     type: Node.Initial,
     data: {
         name: "",
+        errorMessages: [],
     },
     position: {
         x: 10,
         y: 80,
     },
-    isValid: true,
 }
+
+
 
 Initialy while droppping a new element isValid will be false since we have not yet added any flows to them.
 The error nodes will be hightlighted with red border. 
@@ -79,8 +120,10 @@ Decision Node => Following is the structure of decision Node type:
     type: Node.Decision,
     data: {
         name: "Check Condition",
+        errorMessages: [],
         condition: {
             id: "condition1",
+            readDataFlow: "",
             clause: {
                 id: "clause1",
                 type: "function",
@@ -104,13 +147,13 @@ Decision Node => Following is the structure of decision Node type:
                     methodRef: "dateToString",
                     data: [
                         {
-                        id: "inputArg3",
-                        order: 1,
-                        clause: {
-                            id: "clause4",
-                            type: "date",
-                            value: "2024-09-03"
-                        }
+                            id: "inputArg3",
+                            order: 1,
+                            clause: {
+                                id: "clause4",
+                                type: "date",
+                                value: "2024-09-03"
+                            }
                         }
                     ]
                     }
@@ -163,43 +206,218 @@ Decision Node => Following is the structure of decision Node type:
         x: 100,
         y: 90,
     },
-    isValid: true,
 } 
 
-This is a complex example of decision Node. In each node we will have condition property.
+This is a complex example of decision Node. In each node we will have condition property with a clause property.
+
     clause is an expression logic. The possible types for these are:
 
-    Types
-    1. ad:FunctionCallClause ( has methodRef )
-        1. External_Circumstances.
-        2. boolean
-            2. True - bool
-            3. False 
-            5. and ( creates multiple inputArgs )
-            5. or ( creates multiple inputArgs )
-            5. xor ( creates multiple inputArgs )
-            4. not ( creates a inputArg )
-            8. equals ( creates two inputArgs )
-            8. notEquals ( creates two inputArgs )
-            8. lessThan ( creates two inputArgs )
-            8. lessThanOrEqual ( creates two inputArgs )
-            8. greaterThan ( creates two inputArgs )
-            8. greaterThanOrEqual ( creates two inputArgs )
-            9. IsInitialized ( creates a inputArg )
-        3. number
-            1. add ( creates multiple inputArgs )
-            2. subtract ( creates two inputArgs )
-            2. divide ( creates two inputArgs )
-            3. multiply ( creates multiple inputArgs )
-            3. stringLength ( creates a inputArg )
-        4. string
-            5. concat ( creates multiple inputArgs )
-            6. booleanToString ( creates a inputArg )
-            7. dateToString ( creates a inputArg )
-            8. numberToString ( creates a inputArg )
-    2. ad:DateLiteralClause ( has value )
-        1. Means days passed since Unix epoch.
-    3. ad:NumberLiteralClause ( has value )
-        1. Int value
-    4. ad:StringLiteralCluase ( has value )
-        1. String value
+    this cluase is recursive in nature meaning you can add multiple clause properties into multiple clause properties as long as you have function clauses.
+    If the type of clause is function then it will have methodRef and data properties as well, else Value property.
+There could be a readDataFlow property in the condition. We can have only readDataFlow or clause. The readDataFlow property is available if we link the Variable Node.
+
+Business activity_node
+
+{
+    id: "ID",
+    type: Node.BusinessActivity,
+    data: {
+        name: "",
+        errorMessages: [],
+        actions: [
+            {
+                id: "ID2",
+                type: BusinessAction.When,
+                order: 1,
+                value: [
+                    {
+                        id: "ID3",
+                        order: 3,
+                        value: "val2",
+                    },
+                    {
+                        id: "ID4",
+                        order: 2,
+                        field: "KEY1",
+                    },
+                    {
+                        id: "ID5",
+                        order: 1,
+                        value: "val",
+                    },
+                ],
+            },
+            {
+                id: "ID7",
+                type: BusinessAction.And,
+                order: 3,
+                value: [
+                    {
+                        id: "ID8",
+                        value: "val5",
+                    },
+                ]
+            },
+            {
+                id: "ID6",
+                type: BusinessAction.Then,
+                order: 2,
+                value: [
+                    {
+                        id: "ID",
+                        value: "val2",
+                    },
+                ]
+            },
+        ],
+        parameters: [
+            {
+                name: "param1",
+                id: "KEY1",
+                qmlID: "QMLID1",
+                kind: BusinessParameterKind.Input,
+            },
+            {
+                name: "param2",
+                id: "KEY2",
+                qmlID: "QMLID2",
+                kind: BusinessParameterKind.Output,
+            },
+        ],
+        rows: [
+            {
+                id: "ID13",
+                cells: [
+                    {
+                    id: "ID14" ,
+                    key: "KEY1",
+                    value: "val"
+                }, {
+                    id: "ID18", 
+                    key: "KEY2",
+                    value: "vals"
+                }
+            ]
+            },
+            {
+                id: "ID15",
+                cells: [{
+                    id: "ID16", 
+                    key: "KEY1",
+                    value: "val"
+                }, {
+                    id: "ID17", 
+                    key: "KEY2",
+                    value: "vals"
+                }]
+            }
+        ]
+    },
+    position: {
+        x: 10,
+        y: 80,
+    },
+}
+
+In the actions list, each action have a type. Here the order matters. 
+the value is a list of values and fields. The values are simple strings and fields are association made to the one of the parameters.
+In the UI we will choose between value or field
+
+In the parameters list, each parameter is either Input or Output denoted by the kind.
+This parameters will populate the placeholders on actions screen and parameter sets.
+
+In the rows list, each row is a set of parameters with value. Here the total number of cells are same as total number of parameters.
+
+
+Variable Node
+
+{
+    id: "ID",
+    type: Node.Variable,
+    data: {
+        name: "",
+        errorMessages: [],
+        visibility: Visibility.Global,
+        qmlId: "",
+        type: PrimitiveDataType.String,
+    },
+    position: {
+        x: 10,
+        y: 80,
+    },
+}
+
+Adding a Variable node will add the option in the Decision Node. This option will be available under their specific primitive type category.
+
+
+Activity Node
+
+{
+    id: "ID",
+    type: Node.Activity,
+    data: {
+        name: "",
+        errorMessages: [],
+        actions: [
+          {
+            id: "ID",
+            methodRef: ActionType.EvaluateBoolean,
+            objectRef: "",
+            data: [
+              {
+                id: "inputArg6",
+                order: 1,
+                clause: {
+                  id: "clause7",
+                  type: Clause.Function,
+                  methodRef: FunctionClause.Equals,
+                  data: [
+                    {
+                      id: "inputArg11",
+                      order: 1,
+                      clause: {
+                        id: "clause19",
+                        type: Clause.Function,
+                        methodRef: FunctionClause.True
+                      }
+                    },
+                    {
+                      id: "inputArg13",
+                      order: 2,
+                      clause: {
+                        id: "clause18",
+                        type: Clause.Function,
+                        methodRef: FunctionClause.False
+                      }
+                    }
+                  ]
+                }
+              },
+            ]
+          },
+          {
+            id: "ID",
+            methodRef: ActionType.NameTag,
+            data: [
+              {
+                id: "inputArg3",
+                order: 1,
+                clause: {
+                  id: "clause10",
+                  type: Clause.String,
+                  value: "aher",
+                }
+              }
+            ]
+          }
+        ]
+    },
+    position: {
+        x: 10,
+        y: 80,
+    },
+}
+
+If the type is EvaluateBoolean, EvaluateDate, EvaluateInt, EvaluateString then there is extra property as objectRef. 
+In the first data list directly under action there will be only one entry for inputArg. 
+There can be multiple entries for inputArgs in the next data lists. can this is also recursive.

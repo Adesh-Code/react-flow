@@ -62,7 +62,7 @@ InputArgs:
 
 Great now i have a heavy logic for you related to Decision Node, case_control Edge and else_control Edge.
 In every decision object there can be a data property: the properties inside this data will have 
-1.  label
+1.  name
 2.  condition : {
         id: "ID",
         clause: {
@@ -82,14 +82,16 @@ In every decision object there can be a data property: the properties inside thi
                 },
                 inputArgs: {
                     id: "ID",
+                    order: 3,
                     clause: {
                         id: "ID",
                         type: "TYPE",
-                        value: []
+                        value: ""
                     }
                 },
                 inputArgs: {
                     id: "ID",
+                    order: 2,
                     clause: {
                         id: "ID",
                         type: "TYPE",
@@ -163,19 +165,19 @@ Business Activity:
               clause
 
 types:
-    1. ad:WhenAction
-    1. ad:ThenAction
-    1. ad:AndAction
-    1. ad:GivenAction
-    1. ad:NameTagBusinessAction
-    1. ad:NarrativeBusinessAction
+    1. ad:WhenAction - In
+    1. ad:ThenAction - Out
+    1. ad:AndAction - In
+    1. ad:GivenAction - In
+    1. ad:NameTagBusinessAction - In Out
+    1. ad:NarrativeBusinessAction - In Out
 
 
 Great, now that you have understood the current progress. 
 We want to add a simple logic for "Data" type of node, in each Data type of node there will be a data property. 
     in that data property we have following data:
         id: "ID",
-        label: "label",
+        name: "label",
         actions: [
             {
                 id: "ID",
@@ -226,7 +228,7 @@ We want to add a simple logic for "Data" type of node, in each Data type of node
         ],
         parameters: [
             {
-                label: "param1",
+                name: "param1",
                 id: "ID",
                 qmlID: "QMLID",
                 kind: "Input",
@@ -249,16 +251,16 @@ We want to add a simple logic for "Data" type of node, in each Data type of node
             },
         ],
         rows: [
-            {
-                id: "ID",
-                key: "KEY1",
-                value: "val"
-            },
-            {
-                id: "ID",
-                key: "KEY2",
-                value: "vals"
-            }
+          {
+            id: "ID",
+            key: "KEY1",
+            value: "val"
+          },
+          {
+            id: "ID",
+            key: "KEY2",
+            value: "vals"
+          }
         ]
 
 I'll explain the things here, actions is a list of data. The type mentioned in each action will be out of following:
@@ -278,7 +280,7 @@ I'll explain the things here, actions is a list of data. The type mentioned in e
         <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_VFk28Wn9Ee-k0Ym48s7bMA" value="Build Page is performed andss"/>
       </actions>
 
-each parameters are tagged as potentiallyDeletedFields in the xml. The label is used for name. 
+each parameters are tagged as potentiallyDeletedFields in the xml. The name is used for name. 
     kind is either "Input" or "Output". If input then do not mentione kind in the xml. e.g.
     <potentiallyDeletedFields xmi:type="ad:BusinessField" xmi:id="_ryUfMGn-Ee-k0Ym48s7bMA" name="aa" qmlId="qml4291dcfe30c24e12b44bf0fedba8e60e">
         <type xmi:type="ad:CustomTypeRef" xmi:id="_ryUfMWn-Ee-k0Ym48s7bMA" idRef="String"/>
@@ -358,3 +360,126 @@ We have following complete output result :
       <spreadsheet xmi:type="ad:Expression" xmi:id="_du25AjPbEe-CXr1AUSTgQA"/>
     </nodes>
 
+
+
+Variable Node:
+  type: ad:VariableDataObject
+  id
+  name
+  visibility
+  qmlID
+  idRef: PrimitiveDataType -> type
+
+{
+    id: "ID",
+    type: Node.Variable,
+    data: {
+        name: "",
+        errorMessages: [],
+        visibility: Visibility.Global,
+        qmlId: "",
+        type: PrimitiveDataType.String,
+    },
+    position: {
+        x: 10,
+        y: 80,
+    },
+}
+
+Activity Node:
+  id
+  name
+  
+  actions: 
+    type: ad:ActionInvocation
+    id
+    methodRef: TYPE
+    inputArgs:
+      (order)
+      clause:
+        type
+        methodRef
+    outputLocation?:
+      objectRef:
+
+
+
+enum ActionType {
+  EvaluateBoolean: "evaluateBoolean",
+  EvaluateInt: "evaluateInt",
+  EvaluateDate: "evaluateDate",
+  EvaluateString: "evaluateString",
+  Narrative: "narrative",
+  NameTag: "nameTag",
+  CallSubActivity: "callSubActivity",
+}
+
+{
+    id: "ID",
+    type: Node.Activity,
+    data: {
+        name: "",
+        errorMessages: [],
+        actions: [
+          {
+            id: "ID",
+            methodRef: ActionType.EvaluateBoolean,
+            objectRef: "",
+            data: [
+              {
+                id: "inputArg6",
+                order: 1,
+                clause: {
+                  id: "clause7",
+                  type: Clause.Function,
+                  methodRef: FunctionClause.Equals,
+                  data: [
+                    {
+                      id: "inputArg11",
+                      order: 1,
+                      clause: {
+                        id: "clause19",
+                        type: Clause.Function,
+                        methodRef: FunctionClause.True
+                      }
+                    },
+                    {
+                      id: "inputArg13",
+                      order: 2,
+                      clause: {
+                        id: "clause18",
+                        type: Clause.Function,
+                        methodRef: FunctionClause.False
+                      }
+                    }
+                  ]
+                }
+              },
+            ]
+          },
+          {
+            id: "ID",
+            methodRef: ActionType.NameTag,
+            data: [
+              {
+                id: "inputArg3",
+                order: 1,
+                clause: {
+                  id: "clause10",
+                  type: Clause.String,
+                  value: "aher",
+                }
+              }
+            ]
+          }
+        ]
+    },
+    position: {
+        x: 10,
+        y: 80,
+    },
+}
+
+If the type is EvaluateBoolean, EvaluateDate, EvaluateInt, EvaluateString then there is extra property as objectRef. 
+In the first data list directly under action there will be only one entry for inputArg. 
+There can be multiple entries for inputArgs in the next data lists. can this is also recursive.

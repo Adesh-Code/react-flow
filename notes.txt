@@ -22,7 +22,7 @@ Clause:
     1. ad:FunctionCallClause ( has methodRef )
         1. External_Circumstances.
         2. boolean
-            2. True - bool
+            2. True
             3. False 
             5. and ( creates multiple inputArgs )
             5. or ( creates multiple inputArgs )
@@ -49,7 +49,7 @@ Clause:
         
         
     2. ad:DateLiteralClause ( has value )
-        1. Means days passed since Unix epoch.
+        1. Means days passed since Unix epoch. e.g 19993
     3. ad:NumberLiteralClause ( has value )
         1. Int value
     4. ad:StringLiteralCluase ( has value )
@@ -70,8 +70,9 @@ In every decision object there can be a data property: the properties inside thi
             type: "TYPE",
             methodRef: 'METHOD',
             data: [
-                inputArgs: {
+                {
                     id: "ID",
+                    order: 1,
                     clause: {
                         id: "ID",
                         type: "TYPE",
@@ -145,3 +146,215 @@ This is the example of the result for decision node specifically:
         </clause>
       </condition>
     </nodes>
+
+
+Business Activity:
+    1. combinatorialStrength
+    2. spreadsheet
+    3. actions
+        1. textualRendering -
+            1. ad:BusinessActionLiteral ( has a value )
+            2. ad:BusinessActionFieldRef ( has field )
+    4. potentiallyDeletedFields
+        type
+    5. rows
+        1. cells
+            value
+              clause
+
+types:
+    1. ad:WhenAction
+    1. ad:ThenAction
+    1. ad:AndAction
+    1. ad:GivenAction
+    1. ad:NameTagBusinessAction
+    1. ad:NarrativeBusinessAction
+
+
+Great, now that you have understood the current progress. 
+We want to add a simple logic for "Data" type of node, in each Data type of node there will be a data property. 
+    in that data property we have following data:
+        id: "ID",
+        label: "label",
+        actions: [
+            {
+                id: "ID",
+                type: "TYPE",
+                order: 1,
+                value: [
+                    {
+                        id: "ID",
+                        order: 1,
+                        value: "val2",
+                    },
+                    {
+                        id: "ID",
+                        order: 2,
+                        field: "KEY1",
+                    },
+                    {
+                        id: "ID",
+                        order: 3,
+                        value: "val",
+                    },
+                ]
+            },
+            {
+                id: "ID",
+                type: "TYPE",
+                order: 2,
+                value: [
+                    {
+                        id: "ID",
+                        order: 1,
+                        value: "val2",
+                    },
+                ]
+            },
+            {
+                id: "ID",
+                type: "TYPE",
+                order: 3,
+                value: [
+                    {
+                        id: "ID",
+                        order: 1,
+                        value: "val5",
+                    },
+                ]
+            },
+        ],
+        parameters: [
+            {
+                label: "param1",
+                id: "ID",
+                qmlID: "QMLID",
+                kind: "Input",
+                type: {
+                    type: "TYPE",
+                    id: "ID",
+                    idRef: "String"
+                }
+            },
+            {
+                name: "param2",
+                id: "ID",
+                qmlID: "QMLID",
+                kind: "Output",
+                type: {
+                    type: "TYPE",
+                    id: "ID",
+                    idRef: "String"
+                }
+            },
+        ],
+        rows: [
+            {
+                id: "ID",
+                key: "KEY1",
+                value: "val"
+            },
+            {
+                id: "ID",
+                key: "KEY2",
+                value: "vals"
+            }
+        ]
+
+I'll explain the things here, actions is a list of data. The type mentioned in each action will be out of following:
+    when => ad:WhenAction
+    then => ad:ThenAction
+    and => ad:AndAction
+    given => ad:GivenAction
+    nameTag => ad:NameTagBusinessAction
+    narrative => ad:NarrativeBusinessAction
+
+    each action contains value which is a list of objects. each object contains an id and the value or field. 
+    If the object contains field then it means it is an type of ad:BusinessActionFieldRef else ad:BusinessActionLiteral. Here the order matters for the array.
+
+    <actions xmi:type="ad:WhenAction" xmi:id="_TML-UGn7Ee-k0Ym48s7bMA">
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_VFk28Wn9Ee-k0Ym48s0bMA" value="Hey, "/>
+        <textualRendering xmi:type="ad:BusinessActionFieldRef" xmi:id="_VFk28Gn9Ee-k0Ym48s7bMA" field="_Hlq8QGn9Ee-k0Ym48s7bMA"/>
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_VFk28Wn9Ee-k0Ym48s7bMA" value="Build Page is performed andss"/>
+      </actions>
+
+each parameters are tagged as potentiallyDeletedFields in the xml. The label is used for name. 
+    kind is either "Input" or "Output". If input then do not mentione kind in the xml. e.g.
+    <potentiallyDeletedFields xmi:type="ad:BusinessField" xmi:id="_ryUfMGn-Ee-k0Ym48s7bMA" name="aa" qmlId="qml4291dcfe30c24e12b44bf0fedba8e60e">
+        <type xmi:type="ad:CustomTypeRef" xmi:id="_ryUfMWn-Ee-k0Ym48s7bMA" idRef="String"/>
+    </potentiallyDeletedFields>
+
+each rows are tagged as rows. The amount of cells is based on total number of parameters. 
+Their association is done using key of the cell and the id of the parameter. the value is then stored in value tag. other id's are generated randomly. e.g.
+<rows xmi:type="ad:BusinessRow" xmi:id="_FCCh4Gn9Ee-k0Ym48s7bMA">
+        <cells xmi:type="ad:BusinessCell" xmi:id="_ryUfMmn-Ee-k0Ym48s7bMA" key="_ryUfMGn-Ee-k0Ym48s7bMA">
+          <value xmi:type="ad:Expression" xmi:id="_ryUfM2n-Ee-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_xPB_gGn-Ee-k0Ym48s7bMA" value="d"/>
+          </value>
+        </cells>
+        <cells xmi:type="ad:BusinessCell" xmi:id="_IxQlomn9Ee-k0Ym48s7bMA" key="_IxQloGn9Ee-k0Ym48s7bMA">
+          <value xmi:type="ad:Expression" xmi:id="_IxQlo2n9Ee-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_Qyf4MGn9Ee-k0Ym48s7bMA" value="s"/>
+          </value>
+        </cells>
+      </rows>
+
+We have following complete output result :
+
+<nodes xmi:type="ad:BusinessActivityNode" xmi:id="_du25ADPbEe-CXr1AUSTgQA" name="Build Page" controlFlowsIn="_mK9OgDPOEe-CXr1AUSTgQA" controlFlowsOut="_iDR7kDPbEe-CXr1AUSTgQA">
+      <actions xmi:type="ad:WhenAction" xmi:id="_TML-UGn7Ee-k0Ym48s7bMA">
+        <textualRendering xmi:type="ad:BusinessActionFieldRef" xmi:id="_VFk28Gn9Ee-k0Ym48s7bMA" field="_Hlq8QGn9Ee-k0Ym48s7bMA"/>
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_VFk28Wn9Ee-k0Ym48s7bMA" value="Build Page is performed andss"/>
+      </actions>
+      <actions xmi:type="ad:ThenAction" xmi:id="_TML-Umn7Ee-k0Ym48s7bMA">
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_TML-U2n7Ee-k0Ym48s7bMA" value="Build Page completes"/>
+      </actions>
+      <actions xmi:type="ad:GivenAction" xmi:id="_xFa34Gn7Ee-k0Ym48s7bMA">
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_0SPZMGn7Ee-k0Ym48s7bMA" value="Afsss"/>
+      </actions>
+      <actions xmi:type="ad:AndAction" xmi:id="_xfRiUGn7Ee-k0Ym48s7bMA">
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_07i04Gn7Ee-k0Ym48s7bMA" value="asdasd"/>
+      </actions>
+      <actions xmi:type="ad:NameTagBusinessAction" xmi:id="_x4cQQGn7Ee-k0Ym48s7bMA">
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_2ghOoGn7Ee-k0Ym48s7bMA" value="aasda"/>
+      </actions>
+      <actions xmi:type="ad:NarrativeBusinessAction" xmi:id="_yHeKwGn7Ee-k0Ym48s7bMA">
+        <textualRendering xmi:type="ad:BusinessActionLiteral" xmi:id="_3EkW4Gn7Ee-k0Ym48s7bMA" value="asdasd"/>
+      </actions>
+      <potentiallyDeletedFields xmi:type="ad:BusinessField" xmi:id="_ryUfMGn-Ee-k0Ym48s7bMA" name="aa" qmlId="qml4291dcfe30c24e12b44bf0fedba8e60e">
+        <type xmi:type="ad:CustomTypeRef" xmi:id="_ryUfMWn-Ee-k0Ym48s7bMA" idRef="String"/>
+      </potentiallyDeletedFields>
+      <potentiallyDeletedFields xmi:type="ad:BusinessField" xmi:id="_Hlq8QGn9Ee-k0Ym48s7bMA" name="aa" qmlId="qml6da7b15bb32441d4941238909a7cdc73" deleted="true">
+        <type xmi:type="ad:CustomTypeRef" xmi:id="_Hlq8QWn9Ee-k0Ym48s7bMA" idRef="String"/>
+      </potentiallyDeletedFields>
+      <potentiallyDeletedFields xmi:type="ad:BusinessField" xmi:id="_IxQloGn9Ee-k0Ym48s7bMA" name="sdsa" qmlId="qml54d22e50dbb247b485e4de26854d4bbf" kind="Output">
+        <type xmi:type="ad:CustomTypeRef" xmi:id="_IxQloWn9Ee-k0Ym48s7bMA" idRef="String"/>
+      </potentiallyDeletedFields>
+      <combinatorialStrength xmi:type="ad:Expression" xmi:id="_du25ATPbEe-CXr1AUSTgQA"/>
+      <rows xmi:type="ad:BusinessRow" xmi:id="_FCCh4Gn9Ee-k0Ym48s7bMA">
+        <cells xmi:type="ad:BusinessCell" xmi:id="_ryUfMmn-Ee-k0Ym48s7bMA" key="_ryUfMGn-Ee-k0Ym48s7bMA">
+          <value xmi:type="ad:Expression" xmi:id="_ryUfM2n-Ee-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_xPB_gGn-Ee-k0Ym48s7bMA" value="d"/>
+          </value>
+        </cells>
+        <cells xmi:type="ad:BusinessCell" xmi:id="_IxQlomn9Ee-k0Ym48s7bMA" key="_IxQloGn9Ee-k0Ym48s7bMA">
+          <value xmi:type="ad:Expression" xmi:id="_IxQlo2n9Ee-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_Qyf4MGn9Ee-k0Ym48s7bMA" value="s"/>
+          </value>
+        </cells>
+      </rows>
+      <rows xmi:type="ad:BusinessRow" xmi:id="_wzer8Gn-Ee-k0Ym48s7bMA">
+        <cells xmi:type="ad:BusinessCell" xmi:id="_wzer8Wn-Ee-k0Ym48s7bMA" key="_ryUfMGn-Ee-k0Ym48s7bMA">
+          <value xmi:type="ad:Expression" xmi:id="_wzer8mn-Ee-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_xkq4UGn-Ee-k0Ym48s7bMA" value="q"/>
+          </value>
+        </cells>
+        <cells xmi:type="ad:BusinessCell" xmi:id="_wzer82n-Ee-k0Ym48s7bMA" key="_IxQloGn9Ee-k0Ym48s7bMA">
+          <value xmi:type="ad:Expression" xmi:id="_wzer9Gn-Ee-k0Ym48s7bMA">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="_y9gTgGn-Ee-k0Ym48s7bMA" value="q"/>
+          </value>
+        </cells>
+      </rows>
+      <spreadsheet xmi:type="ad:Expression" xmi:id="_du25AjPbEe-CXr1AUSTgQA"/>
+    </nodes>
+

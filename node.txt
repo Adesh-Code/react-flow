@@ -1,0 +1,205 @@
+
+enum Node: {
+    Initial: "initial_node",
+    Block: "block_node",
+    Return: "return_node",
+    End: "end_node",
+    BusinessActivity: "business_activity_node",
+    Activity: "activity_node",
+    Decision: "decision_node",
+    Merge: "merge_node",
+    Event: "event_node",
+    Note: "note_node",
+    Variable: "variable_node"
+}
+
+enum Edge: {
+    Normal: "normal_flow",
+    Case: "case_flow",
+    Else: "else_flow",
+    Data: "data_flow"
+}
+
+enum ClauseType: {
+    Function: "function_clause",
+    Date: "date_clause",
+    Number: "number_clause",
+    String: "string_clause",
+}
+
+enum FunctionClause: {
+    External_Circumstances: "external_circumstances",
+    True: "True",
+    False : "False",
+    And : "and",
+    Or : "or",
+    Xor : "xor",
+    Not : "not",
+    Equals : "equals",
+    NotEquals : "notEquals",
+    LessThan : "lessThan",
+    LessThanOrEqual : "lessThanOrEqual",
+    GreaterThan : "greaterThan",
+    GreaterThanOrEqual : "greaterThanOrEqual",
+    IsInitialized : "IsInitialized",
+    Add : "add",
+    Subtract : "subtract",
+    Divide : "divide",
+    Multiply : "multiply",
+    StringLength : "stringLength",
+    Concat : "concat",
+    BooleanToString : "booleanToString",
+    DateToString : "dateToString",
+    NumberToString : "numberToString",
+}
+
+all the nodes with only name as property will have a name property in the data e.g.
+
+InitialNode => {
+    id: "ID",
+    type: Node.Initial,
+    data: {
+        name: "",
+    },
+    position: {
+        x: 10,
+        y: 80,
+    },
+    isValid: true,
+}
+
+Initialy while droppping a new element isValid will be false since we have not yet added any flows to them.
+The error nodes will be hightlighted with red border. 
+
+
+Decision Node => Following is the structure of decision Node type:
+
+{
+    id: "node2",
+    type: Node.Decision,
+    data: {
+        name: "Check Condition",
+        condition: {
+            id: "condition1",
+            clause: {
+                id: "clause1",
+                type: "function",
+                methodRef: "concat",
+                data: [
+                {
+                    id: "inputArg1",
+                    order: 1,
+                    clause: {
+                    id: "clause2",
+                    type: "string",
+                    value: "Hello"
+                    }
+                },
+                {
+                    id: "inputArg2",
+                    order: 2,
+                    clause: {
+                    id: "clause3",
+                    type: "function",
+                    methodRef: "dateToString",
+                    data: [
+                        {
+                        id: "inputArg3",
+                        order: 1,
+                        clause: {
+                            id: "clause4",
+                            type: "date",
+                            value: "2024-09-03"
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    id: "inputArg4",
+                    order: 3,
+                    clause: {
+                    id: "clause5",
+                    type: "function",
+                    methodRef: "numberToString",
+                    data: [
+                        {
+                        id: "inputArg5",
+                        order: 1,
+                        clause: {
+                            id: "clause6",
+                            type: "function",
+                            methodRef: "add",
+                            data: [
+                            {
+                                id: "inputArg6",
+                                order: 1,
+                                clause: {
+                                id: "clause7",
+                                type: "number",
+                                value: "10"
+                                }
+                            },
+                            {
+                                id: "inputArg7",
+                                order: 2,
+                                clause: {
+                                id: "clause8",
+                                type: "number",
+                                value: "20"
+                                }
+                            }
+                            ]
+                        }
+                        }
+                    ]
+                    }
+                }
+                ]
+            }
+        }
+    },
+    position: {
+        x: 100,
+        y: 90,
+    },
+    isValid: true,
+} 
+
+This is a complex example of decision Node. In each node we will have condition property.
+    clause is an expression logic. The possible types for these are:
+
+    Types
+    1. ad:FunctionCallClause ( has methodRef )
+        1. External_Circumstances.
+        2. boolean
+            2. True - bool
+            3. False 
+            5. and ( creates multiple inputArgs )
+            5. or ( creates multiple inputArgs )
+            5. xor ( creates multiple inputArgs )
+            4. not ( creates a inputArg )
+            8. equals ( creates two inputArgs )
+            8. notEquals ( creates two inputArgs )
+            8. lessThan ( creates two inputArgs )
+            8. lessThanOrEqual ( creates two inputArgs )
+            8. greaterThan ( creates two inputArgs )
+            8. greaterThanOrEqual ( creates two inputArgs )
+            9. IsInitialized ( creates a inputArg )
+        3. number
+            1. add ( creates multiple inputArgs )
+            2. subtract ( creates two inputArgs )
+            2. divide ( creates two inputArgs )
+            3. multiply ( creates multiple inputArgs )
+            3. stringLength ( creates a inputArg )
+        4. string
+            5. concat ( creates multiple inputArgs )
+            6. booleanToString ( creates a inputArg )
+            7. dateToString ( creates a inputArg )
+            8. numberToString ( creates a inputArg )
+    2. ad:DateLiteralClause ( has value )
+        1. Means days passed since Unix epoch.
+    3. ad:NumberLiteralClause ( has value )
+        1. Int value
+    4. ad:StringLiteralCluase ( has value )
+        1. String value

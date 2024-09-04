@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0"
+  xmlns:xmi="http://www.omg.org/XMI"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ad="http://www.conformiq.com/emf/21/ActivityDiagram"
+  xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation">
+  <ad:ActivityDiagram xmi:id="" type="qml1b8c133ef92c4f088d3dfa62203f3dc4">
+    <controlFlows xmi:type="ad:NormalControlFlow" xmi:id="8" to="node2" from="1"/>
+    <nodes xmi:type="ad:InitialNode" xmi:id="1" name="Start" controlFlowsOut="8"/>
+    <nodes xmi:type="ad:DecisionNode" xmi:id="node2" name="undefined" controlFlowsIn="8">
+      <condition xmi:type="ad:Expression" xmi:id="condition1">
+        <clause xmi:type="ad:FunctionCallClause" xmi:id="clause1" methodRef="concat">
+          <inputArgs xmi:type="ad:Expression" xmi:id="inputArg1">
+            <clause xmi:type="ad:StringLiteralClause" xmi:id="clause2" value="Hello" />
+          </inputArgs>
+          <inputArgs xmi:type="ad:Expression" xmi:id="inputArg2">
+            <clause xmi:type="ad:FunctionCallClause" xmi:id="clause3" methodRef="dateToString">
+              <inputArgs xmi:type="ad:Expression" xmi:id="inputArg3">
+                <clause xmi:type="ad:DateLiteralClause" xmi:id="clause4" value="19969" />
+              </inputArgs>
+            </clause>
+          </inputArgs>
+          <inputArgs xmi:type="ad:Expression" xmi:id="inputArg4">
+            <clause xmi:type="ad:FunctionCallClause" xmi:id="clause5" methodRef="numberToString">
+              <inputArgs xmi:type="ad:Expression" xmi:id="inputArg5">
+                <clause xmi:type="ad:FunctionCallClause" xmi:id="clause6" methodRef="add">
+                  <inputArgs xmi:type="ad:Expression" xmi:id="inputArg6">
+                    <clause xmi:type="ad:NumberLiteralClause" xmi:id="clause7" value="10" />
+                  </inputArgs>
+                  <inputArgs xmi:type="ad:Expression" xmi:id="inputArg7">
+                    <clause xmi:type="ad:NumberLiteralClause" xmi:id="clause8" value="20" />
+                  </inputArgs>
+                </clause>
+              </inputArgs>
+            </clause>
+          </inputArgs>
+        </clause>
+      </condition>
+    </nodes>
+  </ad:ActivityDiagram>
+</xmi:XMI>

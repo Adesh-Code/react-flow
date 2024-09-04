@@ -7,7 +7,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
         id: "node2",
         type: "Decision",
         data: {
-          label: "Check Condition",
+          name: "Check Condition",
           condition: {
             id: "condition1",
             clause: {
@@ -17,6 +17,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
               data: [
                 {
                   id: "inputArg1",
+                  order: 1,
                   clause: {
                     id: "clause2",
                     type: "string",
@@ -25,6 +26,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
                 },
                 {
                   id: "inputArg2",
+                  order: 2,
                   clause: {
                     id: "clause3",
                     type: "function",
@@ -43,6 +45,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
                 },
                 {
                   id: "inputArg4",
+                  order: 3,
                   clause: {
                     id: "clause5",
                     type: "function",
@@ -83,6 +86,102 @@ export async function GET(res: NextResponse, req: NextRequest) {
         }
     } 
 
+    const businessNode ={
+        id: "node2",
+        type: "Data",
+        data: {
+            label: "business",
+            actions: [
+                {
+                    id: "ID2",
+                    type: "when",
+                    order: 1,
+                    value: [
+                        {
+                            id: "ID3",
+                            order: 3,
+                            value: "val2",
+                        },
+                        {
+                            id: "ID4",
+                            order: 2,
+                            field: "KEY1",
+                        },
+                        {
+                            id: "ID5",
+                            order: 1,
+                            value: "val",
+                        },
+                    ],
+                },
+                {
+                    id: "ID7",
+                    type: "and",
+                    order: 3,
+                    value: [
+                        {
+                            id: "ID8",
+                            value: "val5",
+                        },
+                    ]
+                },
+                {
+                    id: "ID6",
+                    type: "then",
+                    order: 2,
+                    value: [
+                        {
+                            id: "ID",
+                            value: "val2",
+                        },
+                    ]
+                },
+            ],
+            parameters: [
+                {
+                    label: "param1",
+                    id: "KEY1",
+                    qmlID: "QMLID1",
+                    kind: "Input",
+                },
+                {
+                    name: "param2",
+                    id: "KEY2",
+                    qmlID: "QMLID2",
+                    kind: "Output",
+                },
+            ],
+            rows: [
+                {
+                    id: "ID13",
+                    cells: [{
+                        id: "ID14" ,
+                        key: "KEY1",
+                        value: "val"
+                    }, {
+                        id: "ID18", 
+                        key: "KEY2",
+                        value: "vals"
+                    }]
+                },
+                {
+                    id: "ID15",
+                    cells: [{
+                        id: "ID16", 
+                        key: "KEY1",
+                        value: "val"
+                    }, {
+                        id: "ID17", 
+                        key: "KEY2",
+                        value: "vals"
+                    }]
+                }
+            ]
+        }
+    }
+
+    const activityNode = {}
+
     const complex = {
         type: "qml1b8c133ef92c4f088d3dfa62203f3dc4",
         nodes: [
@@ -93,6 +192,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
                 data: null
               },
               complexDecision,
+              
         ],
         edges: [
             {
@@ -123,8 +223,7 @@ export async function GET(res: NextResponse, req: NextRequest) {
                   "DS" : "'Login' screen",
                   "FF" : "'UserInfo' Form",
                   "CB" : "'OK' button"
-                }
-              ,
+                },
             },
             position: {x:-58.5, y:132}
           },

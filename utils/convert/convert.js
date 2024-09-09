@@ -1,6 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
 import { nodeTypeMap, edgeTypeMap } from './constant';
-import { parseBusinessActivityNode, parseDecisionNode } from './methods';
+import { parseBusinessActivityNode, parseDecisionNode, getFlowAttributeForId, parseVariableNode, parseActivityNode } from './methods';
 
 export function convertToADXML({id, qmlId, nodes, edges}) {
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -55,31 +54,17 @@ function parseNodes(nodes, edges) {
             xml += parseDecisionNode(node, edges);  // Use the custom decision node parser
         } else if (node.type === "business_activity_node") {
             xml += parseBusinessActivityNode(node, edges);
+        } else if (node.type === "variable_node") {
+            xml += parseVariableNode(node);
+        } else if (node.type === "activity_node") {
+            xml += parseActivityNode(node, edges);
         } else {
             // Handle controlFlowsIn and controlFlowsOut
-            attributes += getFlowAttributeForId(edges, id)
+            attributes += getFlowAttributeForId(edges, node.id)
 
             xml += `<nodes ${attributes}/>\n`;
         }
     });
 
     return xml;
-}
-
-
-export function getFlowAttributeForId(edges, id) {
-    let attributes = '';
-    
-    const incomingFlows = edges.filter(edge => edge.target === id).map(edge => edge.id).join(' ');
-    const outgoingFlows = edges.filter(edge => edge.source === id).map(edge => edge.id).join(' ');
-
-    if (incomingFlows) {
-        attributes += ` controlFlowsIn="${incomingFlows}"`;
-    }
-
-    if (outgoingFlows) {
-        attributes += ` controlFlowsOut="${outgoingFlows}"`;
-    }
-
-    return attributes;
 }

@@ -26,3 +26,19 @@ export const clauseTypeMap = {
     data_object_access_clause: "ad:DataObjectAccessClause",
     diagram_ref_clause: "ad:DiagramRefClause"
 };
+
+export const actionTypeMap = {
+    when_action: 'ad:WhenAction',
+    then_action: 'ad:ThenAction',
+    and_action: 'ad:AndAction',
+    given_action: 'ad:GivenAction',
+    nameTag_action: 'ad:NameTagBusinessAction',
+    narrative_action: 'ad:NarrativeBusinessAction'
+};
+
+export const primitiveTypeMap = {
+    String: "String",
+    Boolean: "boolean",
+    Number: "int",
+    Date: "Date"
+  }

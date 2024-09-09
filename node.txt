@@ -31,7 +31,7 @@ enum ClauseType: {
 }
 
 enum FunctionClause: {
-    External_Circumstances: "external_circumstances",
+    External_Circumstances: "External_Circumstances",
     True: "True",
     False : "False",
     And : "and",
@@ -133,9 +133,9 @@ Decision Node => Following is the structure of decision Node type:
                     id: "inputArg1",
                     order: 1,
                     clause: {
-                    id: "clause2",
-                    type: "string",
-                    value: "Hello"
+                      id: "clause2",
+                      type: "string",
+                      value: "Hello"
                     }
                 },
                 {
@@ -349,6 +349,16 @@ Variable Node
 
 Adding a Variable node will add the option in the Decision Node. This option will be available under their specific primitive type category.
 
+    <nodes xmi:type="ad:VariableDataObject" xmi:id="_VhnH0GtfEe-bZIO3G_qyOQ" name="Variable Data Object 1" qmlId="qml24cba77a465249f79f433517c7e2181c">
+      <type xmi:type="ad:CustomTypeRef" xmi:id="_VhnH0WtfEe-bZIO3G_qyOQ" idRef="int"/>
+    </nodes>
+
+    <nodes xmi:type="ad:VariableDataObject" xmi:id="_AKYb0GtwEe-bZIO3G_qyOQ" name="Variable Data Object 4" qmlId="qmle73f474fa8d045f39f0706f7e756d960" visibility="Local">
+      <type xmi:type="ad:CustomTypeRef" xmi:id="_AKYb0WtwEe-bZIO3G_qyOQ" idRef="Date"/>
+    </nodes>
+
+
+int, boolean, String, Date
 
 Activity Node
 
@@ -421,3 +431,108 @@ Activity Node
 If the type is EvaluateBoolean, EvaluateDate, EvaluateInt, EvaluateString then there is extra property as objectRef. 
 In the first data list directly under action there will be only one entry for inputArg. 
 There can be multiple entries for inputArgs in the next data lists. can this is also recursive.
+
+<nodes xmi:type="ad:ActivityNode" xmi:id="_WFck8GtwEe-bZIO3G_qyOQ" name="Activity Node 1">
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_WxJ0YGtwEe-bZIO3G_qyOQ" methodRef="evaluate_boolean">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_WxJ0YWtwEe-bZIO3G_qyOQ">
+          <clause xmi:type="ad:FunctionCallClause" xmi:id="_YzNLsGtwEe-bZIO3G_qyOQ" methodRef="true"/>
+        </inputArgs>
+        <outputLocation xmi:type="ad:DataObjectAccessClause" xmi:id="_ZGD2QGtwEe-bZIO3G_qyOQ" objectRef="qmlcc63d7af2a344468b37fadbc08f6a99e"/>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_XZSLYGtwEe-bZIO3G_qyOQ" methodRef="evaluate_Date">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_XZSLYWtwEe-bZIO3G_qyOQ"/>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_X1Y4kGtwEe-bZIO3G_qyOQ" methodRef="evaluate_boolean">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_X1Y4kWtwEe-bZIO3G_qyOQ">
+          <clause xmi:type="ad:FunctionCallClause" xmi:id="_b9-ekGtwEe-bZIO3G_qyOQ" methodRef="equals">
+            <inputArgs xmi:type="ad:Expression" xmi:id="_b9-ekWtwEe-bZIO3G_qyOQ">
+              <clause xmi:type="ad:StringLiteralClause" xmi:id="_duCG8GtwEe-bZIO3G_qyOQ" value="asd"/>
+            </inputArgs>
+            <inputArgs xmi:type="ad:Expression" xmi:id="_b9-ekmtwEe-bZIO3G_qyOQ">
+              <clause xmi:type="ad:StringLiteralClause" xmi:id="_c_uPcGtwEe-bZIO3G_qyOQ" value=",,m"/>
+            </inputArgs>
+          </clause>
+        </inputArgs>
+        <outputLocation xmi:type="ad:DataObjectAccessClause" xmi:id="_bTv10GtwEe-bZIO3G_qyOQ" objectRef="qmlcc63d7af2a344468b37fadbc08f6a99e"/>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_f8vaMGtwEe-bZIO3G_qyOQ" methodRef="evaluate_int">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_f8vaMWtwEe-bZIO3G_qyOQ"/>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_go5VkGtwEe-bZIO3G_qyOQ" methodRef="evaluate_String">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_go5VkWtwEe-bZIO3G_qyOQ"/>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_hScB0GtwEe-bZIO3G_qyOQ" methodRef="narrative">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_hScB0WtwEe-bZIO3G_qyOQ">
+          <clause xmi:type="ad:StringLiteralClause" xmi:id="_jpNr8GtwEe-bZIO3G_qyOQ" value="asd"/>
+        </inputArgs>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_htTY4GtwEe-bZIO3G_qyOQ" methodRef="name_tag">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_htTY4WtwEe-bZIO3G_qyOQ">
+          <clause xmi:type="ad:StringLiteralClause" xmi:id="_kbuG8GtwEe-bZIO3G_qyOQ" value="asd"/>
+        </inputArgs>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_ioUPoGtwEe-bZIO3G_qyOQ" methodRef="Call_Sub_Activity">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_ioUPoWtwEe-bZIO3G_qyOQ"/>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_k6l0QGtwEe-bZIO3G_qyOQ" methodRef="name_tag">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_k6l0QWtwEe-bZIO3G_qyOQ">
+          <clause xmi:type="ad:FunctionCallClause" xmi:id="_l-h9gGtwEe-bZIO3G_qyOQ" methodRef="concat">
+            <inputArgs xmi:type="ad:Expression" xmi:id="_m5Cd8GtwEe-bZIO3G_qyOQ">
+              <clause xmi:type="ad:DataObjectAccessClause" xmi:id="_m5Cd8WtwEe-bZIO3G_qyOQ" objectRef="qmlf7ccd796c17241298ea9c499ccfd446d"/>
+            </inputArgs>
+            <inputArgs xmi:type="ad:Expression" xmi:id="_ndi5MGtwEe-bZIO3G_qyOQ">
+              <clause xmi:type="ad:DataObjectAccessClause" xmi:id="_ndjgQGtwEe-bZIO3G_qyOQ" objectRef="qmld188359f65d74f58b7ca68132c75e41b"/>
+            </inputArgs>
+            <inputArgs xmi:type="ad:Expression" xmi:id="_n7zigGtwEe-bZIO3G_qyOQ">
+              <clause xmi:type="ad:FunctionCallClause" xmi:id="_n7zigWtwEe-bZIO3G_qyOQ" methodRef="concat">
+                <inputArgs xmi:type="ad:Expression" xmi:id="_okesEGtwEe-bZIO3G_qyOQ">
+                  <clause xmi:type="ad:StringLiteralClause" xmi:id="_oyaaYGtwEe-bZIO3G_qyOQ" value="asd"/>
+                </inputArgs>
+                <inputArgs xmi:type="ad:Expression" xmi:id="_pIibYGtwEe-bZIO3G_qyOQ">
+                  <clause xmi:type="ad:StringLiteralClause" xmi:id="_pSclUGtwEe-bZIO3G_qyOQ" value="asd"/>
+                </inputArgs>
+              </clause>
+            </inputArgs>
+          </clause>
+        </inputArgs>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_rExekGtwEe-bZIO3G_qyOQ" methodRef="narrative">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_rExekWtwEe-bZIO3G_qyOQ">
+          <clause xmi:type="ad:FunctionCallClause" xmi:id="_s9mocGtwEe-bZIO3G_qyOQ" methodRef="concat">
+            <inputArgs xmi:type="ad:Expression" xmi:id="_t8y0kGtwEe-bZIO3G_qyOQ">
+              <clause xmi:type="ad:StringLiteralClause" xmi:id="_t8y0kWtwEe-bZIO3G_qyOQ" value="incomplete"/>
+            </inputArgs>
+            <inputArgs xmi:type="ad:Expression" xmi:id="_ubhX8GtwEe-bZIO3G_qyOQ">
+              <clause xmi:type="ad:DataObjectAccessClause" xmi:id="_ubhX8WtwEe-bZIO3G_qyOQ" objectRef="qmld188359f65d74f58b7ca68132c75e41b"/>
+            </inputArgs>
+          </clause>
+        </inputArgs>
+      </actionInvocations>
+      <actionInvocations xmi:type="ad:ActionInvocation" xmi:id="_wEAYsGtwEe-bZIO3G_qyOQ" methodRef="Call_Sub_Activity">
+        <inputArgs xmi:type="ad:Expression" xmi:id="_wEAYsWtwEe-bZIO3G_qyOQ">
+          <clause xmi:type="ad:DiagramRefClause" xmi:id="_wsLL8GtwEe-bZIO3G_qyOQ" diagramRef="qml7a64732d108346a0b28ea54715958b31"/>
+        </inputArgs>
+      </actionInvocations>
+    </nodes>
+
+
+Case Edge: 
+  {
+    id: "ID",
+    type: Edge.Case,
+    data: {
+      clause: {
+          id: "clause1",
+          type: "function",
+          methodRef: "true", // false
+      }
+    },
+    position: {
+        x: 10,
+        y: 80,
+    },
+  }
+
+The Edge Case will have clause type from ClauseType. The type cannot be DataObject and DiagramRef. 
+  When type is function then there is methodRef. The possible value for methodRef is True or False. Create a enum for this methodRef.
+  When type is other than function then there is a value property.

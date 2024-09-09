@@ -1,42 +1,69 @@
-import {jsonToXml} from '@/utils/gptXML2';
+import { convertToADXML } from "@/utils/convert/convert";
 import { NextRequest, NextResponse } from "next/server";
+import { v4 as uuidv4 } from 'uuid';
 
 export async function GET(res: NextResponse, req: NextRequest) {
 
+  const node1Id = uuidv4();
+  const node2Id = uuidv4();
+  const node3Id = uuidv4();
+  const node4Id = uuidv4();
+  const node5Id = uuidv4();
+  
+  const node6Id = uuidv4();
+  const node7Id = uuidv4();
+  const node8Id = uuidv4();
+  const node9Id = uuidv4();
+  const node10Id = uuidv4();
+  const node11Id = uuidv4();
+  const node12Id = uuidv4();
+  const node13Id = uuidv4();
+  const node14Id = uuidv4();
+  const node15Id = uuidv4();
+
+  const edge1Id = uuidv4();
+  const edge2Id = uuidv4();
+  const edge3Id = uuidv4();
+
+  const variable1Id = uuidv4();
+  const variable2Id = uuidv4();
+  const variable3Id = uuidv4();
+  
+
     const complexDecision = {
-        id: "node2",
-        type: "Decision",
+        id: node2Id,
+        type: "decision_node",
         data: {
           name: "Check Condition",
           condition: {
-            id: "condition1",
+            id: node3Id,
             clause: {
-              id: "clause1",
-              type: "function",
+              id: node4Id,
+              type: "function_clause",
               methodRef: "concat",
               data: [
                 {
-                  id: "inputArg1",
+                  id: node5Id,
                   order: 1,
                   clause: {
                     id: "clause2",
-                    type: "string",
+                    type: "string_clause",
                     value: "Hello"
                   }
                 },
                 {
-                  id: "inputArg2",
+                  id: node6Id,
                   order: 2,
                   clause: {
-                    id: "clause3",
-                    type: "function",
+                    id: node7Id,
+                    type: "function_clause",
                     methodRef: "dateToString",
                     data: [
                       {
-                        id: "inputArg3",
+                        id: node8Id,
                         clause: {
-                          id: "clause4",
-                          type: "date",
+                          id: node9Id,
+                          type: "date_clause",
                           value: "2024-09-03"
                         }
                       }
@@ -44,33 +71,33 @@ export async function GET(res: NextResponse, req: NextRequest) {
                   }
                 },
                 {
-                  id: "inputArg4",
+                  id: node10Id,
                   order: 3,
                   clause: {
-                    id: "clause5",
-                    type: "function",
+                    id: node11Id,
+                    type: "function_clause",
                     methodRef: "numberToString",
                     data: [
                       {
-                        id: "inputArg5",
+                        id: node12Id,
                         clause: {
-                          id: "clause6",
-                          type: "function",
+                          id: node13Id,
+                          type: "function_clause",
                           methodRef: "add",
                           data: [
                             {
-                              id: "inputArg6",
+                              id: node14Id,
                               clause: {
                                 id: "clause7",
-                                type: "number",
+                                type: "number_clause",
                                 value: "10"
                               }
                             },
                             {
-                              id: "inputArg7",
+                              id: node15Id,
                               clause: {
                                 id: "clause8",
-                                type: "number",
+                                type: "number_clause",
                                 value: "20"
                               }
                             }
@@ -86,238 +113,143 @@ export async function GET(res: NextResponse, req: NextRequest) {
         }
     } 
 
+    const simpleDecision1 = {
+      id: node2Id,
+      type: "decision_node",
+      data: {
+        name: "Check Condition2",
+        condition: {
+          id: node14Id,
+          readDataFlow: variable1Id,
+        }
+      }
+    }
+
+    const simpleDecision2 = {
+      id: node3Id,
+      type: "decision_node",
+      data: {
+        name: "Check Condition2",
+        condition: {
+          id: node13Id,
+          objectRef: variable1Id,
+        }
+      }
+    }
+
     const businessNode = {
-        id: "node2",
-        type: "Data",
+        id: node2Id,
+        type: "business_activity_node",
         data: {
             name: "business",
             actions: [
                 {
-                    id: "ID2",
-                    type: "when",
+                    id: node3Id,
+                    type: "when_action",
                     order: 1,
                     value: [
                         {
-                            id: "ID3",
-                            order: 3,
+                            id: node4Id,
+                            order: 2,
                             value: "val2",
                         },
                         {
-                            id: "ID4",
-                            order: 2,
-                            field: "KEY1",
-                        },
-                        {
-                            id: "ID5",
+                            id: node6Id,
                             order: 1,
                             value: "val",
                         },
                     ],
                 },
                 {
-                    id: "ID7",
-                    type: "and",
+                    id: node7Id,
+                    type: "and_action",
                     order: 3,
                     value: [
                         {
-                            id: "ID8",
+                            id: node8Id,
                             value: "val5",
                         },
                     ]
                 },
                 {
-                    id: "ID6",
-                    type: "then",
+                    id: node9Id,
+                    type: "then_action",
                     order: 2,
                     value: [
                         {
-                            id: "ID",
+                            id: node10Id,
                             value: "val2",
                         },
                     ]
                 },
             ],
             parameters: [
-                {
-                    name: "param1",
-                    id: "KEY1",
-                    qmlID: "QMLID1",
-                    kind: "Input",
-                },
-                {
-                    name: "param2",
-                    id: "KEY2",
-                    qmlID: "QMLID2",
-                    kind: "Output",
-                },
+                
             ],
             rows: [
-                {
-                    id: "ID13",
-                    cells: [
-                        {
-                        id: "ID14" ,
-                        key: "KEY1",
-                        value: "val"
-                    }, {
-                        id: "ID18", 
-                        key: "KEY2",
-                        value: "vals"
-                    }
-                ]
-                },
-                {
-                    id: "ID15",
-                    cells: [{
-                        id: "ID16", 
-                        key: "KEY1",
-                        value: "val"
-                    }, {
-                        id: "ID17", 
-                        key: "KEY2",
-                        value: "vals"
-                    }]
-                }
+                
             ]
         }
     }
 
+    const variableNode = {
+      id: node15Id,
+      type: "variable_node",
+      data: {
+          name: "Val",
+          errorMessages: [],
+          visibility: "Global",
+          qmlID: variable1Id,
+          type: "String",
+      },
+      position: {
+          x: 10,
+          y: 80,
+      },
+  }
+  
     const activityNode = {}
 
-    const complex = {
-        type: "qml1b8c133ef92c4f088d3dfa62203f3dc4",
-        nodes: [
-            {
-                id: "1",
-                type: "Start",
-                position: { x: -18.5, y: 0 },
-                data: null
-              },
-              complexDecision,
-        ],
-        edges: [
-            {
-                id: '8',
-                source: '1',
-                target: "node2",
-                animated: true,
-                type: 'control'
-              },
-        ]
-    }
+    const nodes = [
+      {
+        id: node1Id,
+        type: "initial_node",
+        data: {
+            name: "Start",
+            errorMessages: [],
+        },
+        position: {
+            x: 10,
+            y: 80,
+        },
+      },
+      businessNode
+      // simpleDecision1,
+      // simpleDecision2,
+      // variableNode
+        // complexDecision,
+      ];
 
-    const val = {
-        type: "qml1b8c133ef92c4f088d3dfa62203f3dc4",
-        nodes: [{
-            id: "1",
-            type: "Start",
-            position: { x: -18.5, y: 0 },
-            data: null
-          },
-          {
-            id: "2",
-            type: "Data",
-            data: {
-              name: "Request user to login",
-              entities: 
-                {
-                  "DS" : "'Login' screen",
-                  "FF" : "'UserInfo' Form",
-                  "CB" : "'OK' button"
-                },
-            },
-            position: {x:-58.5, y:132}
-          },
-          {
-            id: "3",
-            type: "Decision",
-            data: {
-              name: "ValidUser",
-            },
-            position: {x:-45, y:250}
-          },
-          {
-            id: "4",
-            type: "End",
-            data: null,
-            position: {x:-192.5, y:292}
-          },
-          {
-            id: "5",
-            type: "Data",
-            data: {
-              name: "Invalid login",
-              entities: 
-                {
-                  "DP" : "'Error' popup",
-                },
-            },
-            position: {x:100, y:300}
-          },
-          {
-            id: "6",
-            type: "Datatype",
-            data: {
-              name: "User Info",
-              entities: {
-                "username": "String",
-                "password": "String"
-              }
-            },
-            position: {x:-158.5, y:132}
-          },
-          {
-            id: "7",
-            type: "Comment",
-            data: {
-              name: `Here we validate our "Entered User Info" data. Since we don't have a users table,
-               we must explicitly define here multiple sets of values that can cause this test to pass.
-              Anything else will fail. Our test generator will generate data for any variable filled with
-               "Don't care" values to make sure as many decisio...`,
-      
-            },
-            position: {x: -158.5, y: 350},
-          },
-        ],
-        edges: [
-            {
-                id: '8',
-                source: '1',
-                target: "2",
-                animated: true,
-                type: 'control'
-              },
-              {
-                id: '9',
-                source: '2',
-                target: "3",
-                animated: true,
-                type: 'case_control'
-              },
-              {
-                id: '10',
-                source: '3',
-                sourceHandle: 'left',
-                target: "4",
-                animated: true,
-                type: 'case_control'
-              },
-              {
-                id: '11',
-                source: '3',
-                sourceHandle: 'right',
-                target: "5",
-                animated: true,
-                type: 'else_control'
-              },
-        ]
-    }
+    const edges = [
+        {
+          id: edge1Id,
+          source: node1Id,
+          target: node2Id,
+          animated: true,
+          type: 'control'
+        },
+      ];
 
-    const man = jsonToXml(complex);
+    const val = convertToADXML({
+      id: "1",
+      qmlId: "qml1b8c133ef92c4f088d3dfa62203f3dc4",
+      nodes: nodes,
+      edges: edges
+    });
 
-    console.log(man);
+    console.log(val);
 
-    return NextResponse.json(man, { status: 200, headers: {
+    return NextResponse.json(val, { status: 200, headers: {
          "content-type": "application/json"
     } });
 }
